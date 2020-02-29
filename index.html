@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edp">
+    <title>Tabela Periódica</title>
+    <link rel="stylesheet" href="CSS/Style.css">
+</head>
+
+<body onselectstart="return false">
+
+    <spam id='loadingContainer'>
+        <img src="Source/loading.gif">
+    </spam>
+
+    <h1 id='title'>Tabela Periódica</h1>
+    <h6>By Leonardo "7" Cech</h6>
+
+    <div id="container"> 
+
+        <!-- Parte de pesquisa -->
+        <input type="text" id='search' placeholder="Busque por elementos!"></input>
+        <div id='searchButton'
+             title='Buscar'
+             onclick='searchInTable()'>
+            <img src="https://img.icons8.com/android/24/000000/search.png">
+        </div>
+        <p id='searchResult'>Teste</p>
+
+        <!-- Botao de configuracoes -->
+        <div id="settings">
+            <img width="45" height="45" title='Configurações'
+                 onclick="openSettings()"
+                 src="https://img.icons8.com/flat_round/64/000000/settings--v1.png">
+        </div>
+
+        <!-- Elemento configuracoes-->
+        <div id='settingsContainer'>
+            <div class='settingsOptions' id='showNumbers'>
+                Mostrar número atômico
+                <div onclick='setShowNumbers()'>
+                    <div id='buttonN'></div>
+                </div>
+            </div>
+            <div class='settingsOptions' id='showMasses'>
+                Mostrar massa atômica
+                <div onclick='setShowMasses()'>
+                    <div id='buttonM'></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Elemento com as classificacoes -->
+        <div id='dataContainer'></div>
+        <div id='classificationsContainer'>
+
+            <div id='familyTitle'>Famílias</div>
+
+            <div class='classification' id='c-01'
+                 onmouseover="selectFamily(this.id, true)" 
+                 onmouseout="undoSelection()">AMETAIS</div>
+
+            <div class='classification' id='c-02'
+                 onmouseover="selectFamily(this.id, true)" 
+                 onmouseout="undoSelection()">ACTINÍDEOS</div>
+
+            <div class='classification' id='c-03'
+                 onmouseover="selectFamily(this.id, true)" 
+                 onmouseout="undoSelection()">GASES NOBRES</div>
+
+            <div class='classification' id='c-04'
+                 onmouseover="selectFamily(this.id, true)" 
+                 onmouseout="undoSelection()">HALOGÊNIOS</div>
+
+            <div class='classification' id='c-05'
+                 onmouseover="selectFamily(this.id, true)" 
+                 onmouseout="undoSelection()">LANTANÍDEOS</div>
+
+            <div class='classification' id='c-06'
+                 onmouseover="selectFamily(this.id, true)" 
+                 onmouseout="undoSelection()">METAIS ALCALINOS</div>
+
+            <div class='classification' id='c-07'
+                 onmouseover="selectFamily(this.id, true)" 
+                 onmouseout="undoSelection()">METAIS ALCALINOS-TERROSOS</div>
+
+            <div class='classification' id='c-08'
+                 onmouseover="selectFamily(this.id, true)" 
+                 onmouseout="undoSelection()">METAIS DE TRANSIÇÃO</div>
+
+            <div class='classification' id='c-09'
+                 onmouseover="selectFamily(this.id, true)" 
+                 onmouseout="undoSelection()">SEMICONDUTORES</div>
+
+            <div class='classification' id='c-10'
+                 onmouseover="selectFamily(this.id, true)" 
+                 onmouseout="undoSelection()">SEMIMETAIS</div>
+
+            <div class='classification' id='c-11'
+                 onmouseover="selectFamily(this.id, true)" 
+                 onmouseout="undoSelection()">SUPERACTINOIDE</div>
+        </div>
+
+        <!-- Elementos da tabela -->
+        <div class='numPeriod'>
+            <div id='infoPeriod' onmouseover="showPeriodNum()" onmouseout="undoShowPeriodNum()">Períodos</div>
+            <div id='np-1' onmouseover="selectPeriod(this.id)" onmouseout="undoSelection()">1</div>
+            <div id='np-2' onmouseover="selectPeriod(this.id)" onmouseout="undoSelection()">2</div>
+            <div id='np-3' onmouseover="selectPeriod(this.id)" onmouseout="undoSelection()">3</div>
+            <div id='np-4' onmouseover="selectPeriod(this.id)" onmouseout="undoSelection()">4</div>
+            <div id='np-5' onmouseover="selectPeriod(this.id)" onmouseout="undoSelection()">5</div>
+            <div id='np-6' onmouseover="selectPeriod(this.id)" onmouseout="undoSelection()">6</div>
+            <div id='np-7' onmouseover="selectPeriod(this.id)" onmouseout="undoSelection()">7</div>
+            <div id='np-8' onmouseover="selectPeriod(this.id)" onmouseout="undoSelection()">8</div>
+        </div>
+        <div id="table">
+            <div class='group' id='g-01'>
+                
+                <div class='numGroup' id="ng-01" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >1</div>
+                     
+                <div class='element period-1' id='e-001'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-2' id='e-003'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-3' id='e-011'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-4' id='e-019'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-037'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-055'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-087'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-8' id='e-119'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-02'>
+                
+                <div id='infoGroup' 
+                     onmouseover="showGroupNum()" 
+                     onmouseout="undoshowGroupNum()"
+                     >Grupos</div>
+
+                <div class='numGroup' id="ng-02" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >2</div>
+
+                <div class='element period-2' id='e-004'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-3' id='e-012'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-4' id='e-020'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-038'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-056'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-088'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-8' id='e-120'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-03'>
+                
+                <div class='numGroup' id="ng-03" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >3</div>
+                
+                <div class='element period-4' id='e-021'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-039'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='eVoid' id='void-1' 
+                     onmouseover="selectSubTablePeriod((this.id).split('-')[1], false)" 
+                     onmouseout="undoSelection()"
+                     >57 - 71<br>La - Lu</div>
+
+                <div class='eVoid' id='void-2' 
+                     onmouseover="selectSubTablePeriod((this.id).split('-')[1], false)" 
+                     onmouseout="undoSelection()"
+                     >89 - 103<br>Ac - Lr</div>
+
+                <div class='eVoid' id='void-3' 
+                    onmouseover="selectSubTablePeriod((this.id).split('-')[1], false)" 
+                    onmouseout="undoSelection()"
+                    >121 - 127<br>Ubu - Ubs</div>
+            </div>
+            <div class='group' id='g-04'>
+                
+                <div class='numGroup' id="ng-04" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >4</div>
+
+                <div class='element period-4' id='e-022'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-040'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-072'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-104'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-05'>
+                
+                <div class='numGroup' id="ng-05" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >5</div>
+
+                <div class='element period-4' id='e-023'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-041'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-073'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-105'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-06'>
+                
+                <div class='numGroup' id="ng-06" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >6</div>
+
+                <div class='element period-4' id='e-024'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-042'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-074'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-106'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-07'>
+                
+                <div class='numGroup' id="ng-07" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >7</div>
+
+                <div class='element period-4' id='e-025'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-043'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-075'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-107'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-08'>
+                
+                <div class='numGroup' id="ng-08" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >8</div>
+
+                <div class='element period-4' id='e-026'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-044'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-076'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-108'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-09'>
+                
+                <div class='numGroup' id="ng-09" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >9</div>
+
+                <div class='element period-4' id='e-027'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-045'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-077'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-109'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-10'>
+                
+                <div class='numGroup' id="ng-10" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >10</div>
+
+                <div class='element period-4' id='e-028'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-046'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-078'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-110'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-11'>
+                
+                <div class='numGroup' id="ng-11" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >11</div>
+
+                <div class='element period-4' id='e-029'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-047'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-079'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-111'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-12'>
+                
+                <div class='numGroup' id="ng-12" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >12</div>
+
+                <div class='element period-4' id='e-030'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-048'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-080'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-112'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-13'>
+                
+                <div class='numGroup' id="ng-13" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >13</div>
+                <div class='element period-2' id='e-005'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-3' id='e-013'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-4' id='e-031'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-049'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-081'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-113'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-14'>
+                
+                <div class='numGroup' id="ng-14" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >14</div>
+
+                <div class='element period-2' id='e-006'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-3' id='e-014'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-4' id='e-032'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-050'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-082'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-114'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-15'>
+                
+                <div class='numGroup' id="ng-15" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >15</div>
+
+                <div class='element period-2' id='e-007'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-3' id='e-015'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-4' id='e-033'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-051'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-083'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-115'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-16'>
+                
+                <div class='numGroup' id="ng-16" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >16</div>
+
+                <div class='element period-2' id='e-008'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-3' id='e-016'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-4' id='e-034'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-052'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-084'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-116'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-17'>
+                
+                <div class='numGroup' id="ng-17" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >17</div>
+
+                <div class='element period-2' id='e-009'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-3' id='e-017'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-4' id='e-035'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-053'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-085'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-117'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='group' id='g-18'>
+                
+                <div class='numGroup' id="ng-18" 
+                     onmouseover="selectGroup(this.id)" 
+                     onmouseout="undoSelection()"
+                     >18</div>
+
+                <div class='element period-1' id='e-002'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-2' id='e-010'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-3' id='e-018'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-4' id='e-036'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-5' id='e-054'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-6' id='e-086'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element period-7' id='e-118'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="subTable">
+            <div class='period' id='p-1'>
+                <div class='element subElement' id='e-057'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-058'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-059'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-060'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-061'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-062'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-063'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-064'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-065'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-066'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-067'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-068'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-069'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-070'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-071'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='period' id='p-2'>
+                <div class='element subElement' id='e-089'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-090'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-091'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-092'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-093'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-094'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-095'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-096'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-097'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-098'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-099'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-100'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-101'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-102'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-103'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+            <div class='period' id='p-3'>
+                <div class='element subElement' id='e-121'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-122'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-123'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-124'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-125'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-126'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+                <div class='element subElement' id='e-127'>
+                    <p class='atomicNumber'></p>
+                    <p class='symbol'></p>
+                    <p class='name'></p>
+                    <p class='mass'></p>
+                </div>
+            </div>
+        </div>
+
+        <div id='elementDataContainer'>
+            
+            <div id='dataContainer'>
+
+                <div id='imageContainer' title='Imagem do elemento'>
+                    <img class='imgBack' id='backImg1' src='Source/Elements/079.jpg'/>
+                    <img id='frontImg' src='Source/Elements/079.jpg'/>
+                    <img class='imgBack' id='backImg2' src='Source/Elements/079.jpg'/>
+                </div>
+                
+                <p id='elementFamily' title='Família do elemento'>Metais de Transição</p>
+                <p id='elementTitle' title='Nome do elemento em latim'><i>Aurum</i></p>
+
+                <img id='elementPhase' src='Source/Icons/solid.png' title='Sólido'/>
+                <img id='elementRadioactive' src='Source/Icons/radioctive_no.png' title='Não radioativo'/>
+
+                <div id='dataColumnsContainer'>
+
+                    <div id='dataColumn1'>
+
+                        <table id='dataCard'>
+                            <tr>
+                                <th id='symbolDataTitle'>Símbolo:</th>
+                                <td id='symbolnameData'>Au</td>
+                            </tr>
+                            <tr>
+                                <th id='nameDataTitle'>Nome:</td>
+                                <td id='nameData'>Ouro</td>
+                            </tr>
+                            <tr>
+                                <th id='yearDataTitle'>Descobrimento:</td>
+                                <td id='yearData'>?</td>
+                            </tr>
+                            <tr>
+                                <th id='discoveredDataTitle'>Descobridor(es):</tthd>
+                                <td id='discoveredData'>?</td>
+                            </tr>
+                            <tr>
+                                <th id='numberDataTitle'>Número atômico:</td>
+                                <td id='numberData'>79</td>
+                            </tr>
+                            <tr>
+                                <th id='massDataTitle'>Massa atômica:</td>
+                                <td id='massData'>196.966 g/mol</td>
+                            </tr>
+                            <tr>
+                                <th id='nameDataTitle'>Densidade:</td>
+                                <td id='nameData'>19.3 g/cm³</td>
+                            </tr>
+                            <tr>
+                                <th id='fusionDataTitle'>Ponto de fusão:</td>
+                                <td id='fusionData'>1064.43 °C</br>1337.58 K</td>
+                            </tr>
+                            <tr>
+                                <th id='fusionDataTitle'>Ponto de ebulição:</td>
+                                <td id='fusionData'>2700 °C</br>2973.15 K</td>
+                            </tr>
+                            <tr>
+                                <th id='valencyDataTitle'>Valência:</td>
+                                <td id='valencyData'>I, II, III</td>
+                            </tr>
+                            <tr>
+                                <th id='periodDataTitle'>Período:</td>
+                                <td id='periodData'>6</td>
+                            </tr>
+                            <tr>
+                                <th id='groupDataTitle'>Grupo:</td>
+                                <td id='groupData'>11</td>
+                            </tr>
+                        </table>
+
+                        <table id='abundanceCard'>
+                            <tr>
+                                <td colspan="2" style='font-size: 18px; font-weight: bold;'>Abundância do elemento:</td>
+                            </tr>
+                            <tr>
+                                <td id='universeDataTitle'>No universo</td>
+                                <td id='universeDataTitle'> ???</td>
+                            </tr>
+                            <tr>
+                                <td id='sunDataTitle'>No Sol</td>
+                                <td id='sunDataTitle'>1 × 10<sup>-7</sup> %</td>
+                            </tr>
+                            <tr>
+                                <td id='oceanDataTitle'>Nos oceanos</td>
+                                <td id='oceanDataTitle'>5 × 10<sup>-9</sup> %</td>
+                            </tr>
+                            <tr>
+                                <td id='humanbodyDataTitle'>No corpo humano</td>
+                                <td id='humanbodyDataTitle'>0.00001 %</td>
+                            </tr>
+                            <tr>
+                                <td id='earthcrustDataTitle'>Na crosta terrestre</td>
+                                <td id='earthcrustDataTitle'>3 × 10<sup>-7</sup> %</td>
+                            </tr>
+                            <tr>
+                                <td id='meteoritesDataTitle'>Em meteoritos</td>
+                                <td id='meteoritesDataTitle'>0.000017 %</td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <div id='dataColumn2'>
+
+                        <p>Espectro de emissão:</p>
+                        <img id='spectrumImage' src="Source/Spectrum/079.gif" title='Espectro eletromagnético do elemento'>
+
+                        <table id='particlesCard'>
+                            <tr>
+                                <th id='eletronsDataTitle'>Elétrons</th>
+                                <th id='neutronsDataTitle'>Nêutrons</th>
+                                <th id='protonsDataTitle'>Prótons</th>
+                            </tr>
+                            <tr>
+                                <td id='eletronsData'>79</td>
+                                <td id='neutronsData'>118</td>
+                                <td id='protonsData'>79</td>
+                            </tr>
+                        </table>
+
+                        <div id='elementParticlesData'>
+                            <p>Configuração eletrônica:</p>
+                            <p id='layersData'>K2 L8 M18 N32 O18 P1 Q0 R0</p>
+                        </div>
+
+                        <canvas id='animateAtom'
+                                title='Model de distribuição de elétrons no átomo do elemento'
+                                width="300"
+                                height="300"></canvas>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id='backTopButton' onclick='goToTable()'>Voltar à Tabela periódica</div>
+        </div>
+
+    </div>
+
+    <!-- Botao para direcionar para container com mais informacoes sobre o elemento selecionado -->
+    <div id='buttonGoToData' onclick='goToElementDataContainer()'>Clique aqui para saber mais sobre o elemento!</div>
+
+    <script src="JS/Config.js"></script>
+    <script src="JS/Data.js"></script>
+    <script src="JS/AtomicModel.js"></script>
+    <script src="JS/Animations.js"></script>
+    <script>
+
+    </script>
+</body>
+</html>
